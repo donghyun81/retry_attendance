@@ -12,4 +12,9 @@ class AttendanceUpdateInputView {
         println("수정하려는 날짜(일)를 입력해 주세요.")
         return Console.readLine()
     }
+
+    fun readUpdateTime(): String {
+        println("언제로 변경하겠습니까?")
+        return Console.readLine()
+    }
 }

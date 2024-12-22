@@ -1,8 +1,12 @@
 package attendance
 
-import attendance.controller.*
-import attendance.domain.AttendanceService
-import attendance.domain.DateValidator
+import attendance.controller.check_records.CheckAttendanceRecordsController
+import attendance.controller.check_risk_expulsion.CheckRiskOfExpulsionController
+import attendance.controller.confirmation.AttendanceConfirmationController
+import attendance.controller.home.HomeController
+import attendance.controller.update.AttendanceUpdateController
+import attendance.domain.service.AttendanceService
+import attendance.domain.validator.DateValidator
 
 fun main() {
     val homeController = HomeController()

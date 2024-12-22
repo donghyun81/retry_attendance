@@ -1,4 +1,4 @@
-package attendance.domain
+package attendance.domain.validator
 
 import common.getDayOfWeek
 import common.isHoliday

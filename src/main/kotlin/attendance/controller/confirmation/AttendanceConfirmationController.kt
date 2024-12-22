@@ -1,9 +1,9 @@
-package attendance.controller
+package attendance.controller.confirmation
 
-import attendance.domain.AttendanceService
-import attendance.domain.DateValidator
-import attendance.view.AttendanceConfirmationInputView
-import attendance.view.AttendanceConfirmationOutputView
+import attendance.domain.service.AttendanceService
+import attendance.domain.validator.DateValidator
+import attendance.view.confirmation.AttendanceConfirmationInputView
+import attendance.view.confirmation.AttendanceConfirmationOutputView
 import camp.nextstep.edu.missionutils.DateTimes
 import java.time.LocalDateTime
 import java.time.LocalTime

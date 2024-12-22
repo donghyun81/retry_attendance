@@ -1,4 +1,4 @@
-package attendance.view
+package attendance.view.check_records
 
 import camp.nextstep.edu.missionutils.Console
 

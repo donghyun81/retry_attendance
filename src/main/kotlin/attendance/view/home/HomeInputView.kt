@@ -1,5 +1,6 @@
-package attendance.view
+package attendance.view.home
 
+import common.UserAction
 import camp.nextstep.edu.missionutils.Console
 import common.formatTwoDigit
 import common.getDayOfWeek

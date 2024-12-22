@@ -1,7 +1,7 @@
-package attendance.controller
+package attendance.controller.home
 
-import attendance.view.HomeInputView
-import attendance.view.UserAction
+import attendance.view.home.HomeInputView
+import common.UserAction
 import camp.nextstep.edu.missionutils.DateTimes
 
 class HomeController {

@@ -1,4 +1,4 @@
-package attendance.view
+package common
 
 enum class UserAction(val type: String, val message: String) {
     ATTENDANCE_CONFIRMATION("1", "1. 출석 확인"),

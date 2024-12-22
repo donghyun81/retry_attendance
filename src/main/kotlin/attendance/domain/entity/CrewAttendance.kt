@@ -1,4 +1,4 @@
-package attendance.domain
+package attendance.domain.entity
 
 import common.AttendanceState
 import java.time.LocalDateTime

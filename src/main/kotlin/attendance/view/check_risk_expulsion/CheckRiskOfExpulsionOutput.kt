@@ -1,6 +1,6 @@
-package attendance.view
+package attendance.view.check_risk_expulsion
 
-import attendance.domain.CrewAttendance
+import attendance.domain.entity.CrewAttendance
 import common.AttendanceState
 
 class CheckRiskOfExpulsionOutput {

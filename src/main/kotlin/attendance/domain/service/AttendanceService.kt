@@ -1,8 +1,9 @@
-package attendance.domain
+package attendance.domain.service
 
+import attendance.domain.entity.CrewAttendance
+import attendance.domain.validator.CrewAttendanceValidator
 import camp.nextstep.edu.missionutils.DateTimes
 import common.AttendanceState
-import common.getDayOfWeek
 import common.isHoliday
 import java.io.FileReader
 import java.time.LocalDate

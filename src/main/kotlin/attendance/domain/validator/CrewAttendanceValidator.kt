@@ -1,4 +1,4 @@
-package attendance.domain
+package attendance.domain.validator
 
 class CrewAttendanceValidator {
     fun validateNickName(crewNames: List<String>, inputName: String) {

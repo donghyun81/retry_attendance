@@ -1,6 +1,6 @@
-package attendance.view
+package attendance.view.check_records
 
-import attendance.domain.CrewAttendance
+import attendance.domain.entity.CrewAttendance
 import common.AttendanceState
 import common.formatTwoDigit
 import common.getDayOfWeek

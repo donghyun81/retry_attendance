@@ -1,6 +1,11 @@
-package attendance.controller
+package attendance
 
-import attendance.view.UserAction
+import attendance.controller.check_records.CheckAttendanceRecordsController
+import attendance.controller.check_risk_expulsion.CheckRiskOfExpulsionController
+import attendance.controller.confirmation.AttendanceConfirmationController
+import attendance.controller.home.HomeController
+import attendance.controller.update.AttendanceUpdateController
+import common.UserAction
 
 class AppCoordinator(
     private val homeController: HomeController,

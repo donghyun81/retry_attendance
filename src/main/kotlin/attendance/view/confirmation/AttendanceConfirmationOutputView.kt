@@ -1,4 +1,4 @@
-package attendance.view
+package attendance.view.confirmation
 
 import common.AttendanceState
 import common.getDayOfWeek

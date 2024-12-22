@@ -26,7 +26,6 @@ class AttendanceService {
     }
 
     fun addAttendance(name: String, dateTime: LocalDateTime) {
-        println(dateTime.toString())
         crewAttendances.add(CrewAttendance(name, dateTime))
     }
 }

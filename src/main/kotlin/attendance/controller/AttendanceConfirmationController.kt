@@ -2,6 +2,7 @@ package attendance.controller
 
 import attendance.domain.AttendanceService
 import attendance.view.AttendanceConfirmationInputView
+import attendance.view.AttendanceConfirmationOutputView
 import camp.nextstep.edu.missionutils.DateTimes
 import common.getDayOfWeek
 import common.isHoliday
@@ -12,6 +13,7 @@ class AttendanceConfirmationController(
     private val attendanceService: AttendanceService
 ) {
     private val inputView = AttendanceConfirmationInputView()
+    private val outputView = AttendanceConfirmationOutputView()
     private val today = DateTimes.now()
 
     fun run() {
@@ -20,7 +22,9 @@ class AttendanceConfirmationController(
         validateNickName(nickName)
         val time = getArrivalTime(inputView.readArrivalTime())
         validateAttendance(nickName)
-        attendanceService.addAttendance(nickName, LocalDateTime.of(today.toLocalDate(), time))
+        val attendanceDateTime = LocalDateTime.of(today.toLocalDate(), time)
+        attendanceService.addAttendance(nickName, attendanceDateTime)
+        outputView.printConfirmationResult(attendanceDateTime)
     }
 
     private fun validateSchoolDay() {
@@ -46,6 +50,6 @@ class AttendanceConfirmationController(
 
     private fun validateAttendance(name: String) {
         val hasAttendance = attendanceService.hasAttendance(name, today.dayOfMonth)
-        require(hasAttendance) { "[ERROR] 이미 출석을 확인하였습니다. 필요한 경우 수정 기능을 이용해 주세요." }
+        require(hasAttendance.not()) { "[ERROR] 이미 출석을 확인하였습니다. 필요한 경우 수정 기능을 이용해 주세요." }
     }
 }

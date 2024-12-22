@@ -15,3 +15,15 @@ fun DayOfWeek.getDayOfWeek(): String {
         DayOfWeek.SUNDAY -> return "일요일"
     }
 }
+
+fun DayOfWeek.isHoliday(): Boolean {
+    return when (this) {
+        DayOfWeek.MONDAY -> return false
+        DayOfWeek.TUESDAY -> return false
+        DayOfWeek.WEDNESDAY -> return false
+        DayOfWeek.THURSDAY -> return false
+        DayOfWeek.FRIDAY -> return false
+        DayOfWeek.SATURDAY -> return true
+        DayOfWeek.SUNDAY -> return true
+    }
+}

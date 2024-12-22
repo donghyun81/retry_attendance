@@ -24,4 +24,9 @@ class AttendanceService {
     fun hasAttendance(name: String, day: Int): Boolean {
         return crewAttendances.any { it.nickname == name && it.datetime.dayOfMonth == day }
     }
+
+    fun addAttendance(name: String, dateTime: LocalDateTime) {
+        println(dateTime.toString())
+        crewAttendances.add(CrewAttendance(name, dateTime))
+    }
 }

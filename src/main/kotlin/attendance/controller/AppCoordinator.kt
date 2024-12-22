@@ -3,7 +3,8 @@ package attendance.controller
 import attendance.view.UserAction
 
 class AppCoordinator(
-    private val homeController: HomeController
+    private val homeController: HomeController,
+    private val attendanceConfirmationController: AttendanceConfirmationController
 ) {
     fun start() {
         while (true) {
@@ -16,6 +17,7 @@ class AppCoordinator(
     private fun runUserAction(userAction: UserAction): Boolean {
         return when (userAction) {
             UserAction.ATTENDANCE_CONFIRMATION -> {
+                attendanceConfirmationController.run()
                 true
             }
 

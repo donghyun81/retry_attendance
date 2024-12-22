@@ -11,6 +11,13 @@ fun main() {
     val attendanceConfirmationController = AttendanceConfirmationController(attendanceService, dateValidator)
     val attendanceUpdateController = AttendanceUpdateController(attendanceService, dateValidator)
     val checkAttendanceRecordsController = CheckAttendanceRecordsController(attendanceService)
-    val appCoordinator = AppCoordinator(homeController, attendanceConfirmationController, attendanceUpdateController,checkAttendanceRecordsController)
+    val checkRiskOfExpulsionController = CheckRiskOfExpulsionController(attendanceService)
+    val appCoordinator = AppCoordinator(
+        homeController,
+        attendanceConfirmationController,
+        attendanceUpdateController,
+        checkAttendanceRecordsController,
+        checkRiskOfExpulsionController
+    )
     appCoordinator.start()
 }

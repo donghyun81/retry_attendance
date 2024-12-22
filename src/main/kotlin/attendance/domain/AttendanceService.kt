@@ -42,7 +42,9 @@ class AttendanceService(
         }
     }
 
-    private fun getCrewNames() = crewAttendances.map { it.nickname }
+    fun getCrewAttendances() = crewAttendances.map { it.copy() }
+
+    fun getCrewNames() = crewAttendances.map { it.nickname }.distinct()
 
     fun validateNickName(inputName: String) {
         crewAttendanceValidator.validateNickName(getCrewNames(), inputName)

@@ -6,7 +6,8 @@ class AppCoordinator(
     private val homeController: HomeController,
     private val attendanceConfirmationController: AttendanceConfirmationController,
     private val attendanceUpdateController: AttendanceUpdateController,
-    private val checkAttendanceRecordsController: CheckAttendanceRecordsController
+    private val checkAttendanceRecordsController: CheckAttendanceRecordsController,
+    private val checkRiskOfExpulsionController: CheckRiskOfExpulsionController
 ) {
     fun start() {
         while (true) {
@@ -33,7 +34,8 @@ class AppCoordinator(
                 true
             }
 
-            UserAction.CONFIRMATION_OF_THOSE_AT_RISK_OF_EXPULSION -> {
+            UserAction.CHECK_RISK_OF_EXPULSION -> {
+                checkRiskOfExpulsionController.run()
                 true
             }
 

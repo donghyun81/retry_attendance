@@ -5,6 +5,7 @@ import attendance.domain.DateValidator
 import attendance.view.AttendanceUpdateInputView
 import attendance.view.AttendanceUpdateOutputView
 import camp.nextstep.edu.missionutils.DateTimes
+import java.time.LocalDateTime
 import java.time.LocalTime
 
 class AttendanceUpdateController(
@@ -22,6 +23,9 @@ class AttendanceUpdateController(
         val day = dateValidator.validateDay(inputView.readUpdateDate())
         attendanceService.validateUpdate(name, day)
         val time = getUpdateTime(inputView.readUpdateTime())
+        val previousAttendance = attendanceService.updateAttendance(name, day, time).datetime
+        val updateDateTime = LocalDateTime.of(previousAttendance.toLocalDate(), time)
+        outputView.printUpdateResult(previousAttendance, updateDateTime)
     }
 
     private fun getUpdateTime(time: String): LocalTime {

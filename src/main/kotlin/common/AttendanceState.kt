@@ -10,10 +10,10 @@ enum class AttendanceState(val result: String) {
 
     companion object {
         fun convertAttendanceState(date: LocalDateTime): AttendanceState {
-            if (date.dayOfWeek == DayOfWeek.MONDAY && date.hour >= 13 && date.minute > 5) return PERCEPTION
             if (date.dayOfWeek == DayOfWeek.MONDAY && date.hour >= 13 && date.minute > 30) return ABSENCE
-            if (date.dayOfWeek.isHoliday().not() && date.hour >= 10 && date.minute > 5) return PERCEPTION
+            if (date.dayOfWeek == DayOfWeek.MONDAY && date.hour >= 13 && date.minute > 5) return PERCEPTION
             if (date.dayOfWeek.isHoliday().not() && date.hour >= 10 && date.minute > 30) return ABSENCE
+            if (date.dayOfWeek.isHoliday().not() && date.hour >= 10 && date.minute > 5) return PERCEPTION
             return ATTENDANCE
         }
     }

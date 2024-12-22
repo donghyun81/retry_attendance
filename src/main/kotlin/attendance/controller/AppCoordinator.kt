@@ -4,7 +4,8 @@ import attendance.view.UserAction
 
 class AppCoordinator(
     private val homeController: HomeController,
-    private val attendanceConfirmationController: AttendanceConfirmationController
+    private val attendanceConfirmationController: AttendanceConfirmationController,
+    private val attendanceUpdateController: AttendanceUpdateController
 ) {
     fun start() {
         while (true) {
@@ -22,6 +23,7 @@ class AppCoordinator(
             }
 
             UserAction.ATTENDANCE_CORRECTION -> {
+                attendanceUpdateController.run()
                 true
             }
 

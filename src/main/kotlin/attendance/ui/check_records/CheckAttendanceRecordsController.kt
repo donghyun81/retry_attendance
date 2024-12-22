@@ -1,8 +1,6 @@
-package attendance.controller.check_records
+package attendance.ui.check_records
 
 import attendance.domain.service.AttendanceService
-import attendance.view.check_records.CheckAttendanceRecordsInputView
-import attendance.view.check_records.CheckAttendanceRecordsOutputView
 
 class CheckAttendanceRecordsController(
     private val attendanceService: AttendanceService,

@@ -1,4 +1,4 @@
-package attendance.view.update
+package attendance.ui.update
 
 import camp.nextstep.edu.missionutils.Console
 

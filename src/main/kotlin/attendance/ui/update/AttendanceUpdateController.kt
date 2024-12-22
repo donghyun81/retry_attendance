@@ -1,9 +1,7 @@
-package attendance.controller.update
+package attendance.ui.update
 
 import attendance.domain.service.AttendanceService
 import attendance.domain.validator.DateValidator
-import attendance.view.update.AttendanceUpdateInputView
-import attendance.view.update.AttendanceUpdateOutputView
 import camp.nextstep.edu.missionutils.DateTimes
 import java.time.LocalDateTime
 import java.time.LocalTime

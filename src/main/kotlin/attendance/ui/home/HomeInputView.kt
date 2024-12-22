@@ -1,4 +1,4 @@
-package attendance.view.home
+package attendance.ui.home
 
 import common.UserAction
 import camp.nextstep.edu.missionutils.Console

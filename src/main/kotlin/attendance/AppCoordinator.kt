@@ -1,10 +1,10 @@
 package attendance
 
-import attendance.controller.check_records.CheckAttendanceRecordsController
-import attendance.controller.check_risk_expulsion.CheckRiskOfExpulsionController
-import attendance.controller.confirmation.AttendanceConfirmationController
-import attendance.controller.home.HomeController
-import attendance.controller.update.AttendanceUpdateController
+import attendance.ui.check_records.CheckAttendanceRecordsController
+import attendance.ui.check_risk_expulsion.CheckRiskOfExpulsionController
+import attendance.ui.confirmation.AttendanceConfirmationController
+import attendance.ui.home.HomeController
+import attendance.ui.update.AttendanceUpdateController
 import common.UserAction
 
 class AppCoordinator(

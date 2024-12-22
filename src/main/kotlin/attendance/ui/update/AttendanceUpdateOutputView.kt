@@ -1,4 +1,4 @@
-package attendance.view.update
+package attendance.ui.update
 
 import common.AttendanceState
 import common.getDayOfWeek

@@ -1,7 +1,6 @@
-package attendance.controller.check_risk_expulsion
+package attendance.ui.check_risk_expulsion
 
 import attendance.domain.service.AttendanceService
-import attendance.view.check_risk_expulsion.CheckRiskOfExpulsionOutput
 
 class CheckRiskOfExpulsionController(private val attendanceService: AttendanceService) {
 

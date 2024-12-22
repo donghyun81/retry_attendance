@@ -1,4 +1,4 @@
-package attendance.view.check_records
+package attendance.ui.check_records
 
 import attendance.domain.entity.CrewAttendance
 import common.AttendanceState

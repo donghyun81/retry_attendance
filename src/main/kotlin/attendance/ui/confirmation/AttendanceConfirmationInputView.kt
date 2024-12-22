@@ -1,4 +1,4 @@
-package attendance.view.confirmation
+package attendance.ui.confirmation
 
 import camp.nextstep.edu.missionutils.Console
 

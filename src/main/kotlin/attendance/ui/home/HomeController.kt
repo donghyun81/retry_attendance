@@ -1,6 +1,5 @@
-package attendance.controller.home
+package attendance.ui.home
 
-import attendance.view.home.HomeInputView
 import common.UserAction
 import camp.nextstep.edu.missionutils.DateTimes
 

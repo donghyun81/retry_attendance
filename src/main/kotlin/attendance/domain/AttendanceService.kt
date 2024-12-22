@@ -2,6 +2,7 @@ package attendance.domain
 
 import java.io.FileReader
 import java.time.LocalDateTime
+import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 class AttendanceService(
@@ -39,5 +40,14 @@ class AttendanceService(
 
     fun addAttendance(name: String, dateTime: LocalDateTime) {
         crewAttendances.add(CrewAttendance(name, dateTime))
+    }
+
+    fun updateAttendance(name: String, day: Int, updateTime: LocalTime): CrewAttendance {
+        val attendanceIndex = crewAttendances.indexOfFirst { it.nickname == name && day == it.datetime.dayOfMonth }
+        require(attendanceIndex != -1)
+        val currentAttendance = crewAttendances[attendanceIndex]
+        val updateDateTime = currentAttendance.datetime.also { LocalDateTime.of(it.toLocalDate(), updateTime) }
+        crewAttendances[attendanceIndex] = CrewAttendance(name, updateDateTime)
+        return currentAttendance
     }
 }

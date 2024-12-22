@@ -18,4 +18,6 @@ class AttendanceService {
             CrewAttendance(nickName, LocalDateTime.parse(dateTime, formatter))
         }.toMutableList()
     }
+
+    fun getCrewNames() = crewAttendances.map { it.nickname }
 }

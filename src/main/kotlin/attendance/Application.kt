@@ -1,5 +1,10 @@
 package attendance
 
+import attendance.controller.AppCoordinator
+import attendance.controller.HomeController
+
 fun main() {
-    // TODO: 프로그램 구현
+    val homeController = HomeController()
+    val appCoordinator = AppCoordinator(homeController)
+    appCoordinator.start()
 }

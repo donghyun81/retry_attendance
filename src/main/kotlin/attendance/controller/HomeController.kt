@@ -5,9 +5,9 @@ import attendance.view.UserAction
 
 class HomeController {
     private val inputView = HomeInputView()
-    fun run() {
+    fun getUserAction(): UserAction {
         val userActionInput = inputView.readUserAction()
-        val userAction = convertUserAction(userActionInput)
+        return convertUserAction(userActionInput)
     }
 
     private fun convertUserAction(input: String): UserAction {

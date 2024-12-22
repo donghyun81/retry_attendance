@@ -20,4 +20,8 @@ class AttendanceService {
     }
 
     fun getCrewNames() = crewAttendances.map { it.nickname }
+
+    fun hasAttendance(name: String, day: Int): Boolean {
+        return crewAttendances.any { it.nickname == name && it.datetime.dayOfMonth == day }
+    }
 }

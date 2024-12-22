@@ -2,6 +2,7 @@
 
 package common
 
+import java.text.DecimalFormat
 import java.time.DayOfWeek
 
 fun DayOfWeek.getDayOfWeek(): String {
@@ -26,4 +27,9 @@ fun DayOfWeek.isHoliday(): Boolean {
         DayOfWeek.SATURDAY -> return true
         DayOfWeek.SUNDAY -> return true
     }
+}
+
+fun Int.formatTwoDigit():String{
+    val formatter = DecimalFormat("00")
+    return formatter.format(this)
 }

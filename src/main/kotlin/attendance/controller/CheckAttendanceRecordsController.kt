@@ -13,5 +13,7 @@ class CheckAttendanceRecordsController(
     fun run() {
         val userName = inputView.readQueryName()
         attendanceService.validateNickName(userName)
+        val crewAttendances = attendanceService.getCrewAttendances(userName)
+        outputView.printCrewAttendances(crewAttendances)
     }
 }

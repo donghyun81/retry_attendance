@@ -35,7 +35,7 @@ class AttendanceService(
         crews.forEach { name ->
             val crewAttendance = crewAttendances.find { it.nickname == name && it.datetime.dayOfMonth == day }
             val currentDate = LocalDate.of(today.year, today.monthValue, day)
-            if (crewAttendance == null && currentDate.dayOfWeek.isHoliday().not()) {
+            if (crewAttendance == null && currentDate.dayOfWeek.isHoliday().not() && day != 25) {
                 val noTime = LocalTime.of(23, 59)
                 addAttendance(name, LocalDateTime.of(currentDate, noTime))
             }

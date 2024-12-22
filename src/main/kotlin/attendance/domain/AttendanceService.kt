@@ -27,7 +27,12 @@ class AttendanceService(
         crewAttendanceValidator.validateNickName(getCrewNames(), inputName)
     }
 
-    fun validateHasAttendance(name: String, day: Int) {
+    fun validateUpdate(name: String, day: Int) {
+        val hasAttendance = crewAttendances.any { it.nickname == name && it.datetime.dayOfMonth == day }
+        crewAttendanceValidator.validateUpdateAttendance(hasAttendance)
+    }
+
+    fun validateAttendance(name: String, day: Int) {
         val hasAttendance = crewAttendances.any { it.nickname == name && it.datetime.dayOfMonth == day }
         crewAttendanceValidator.validateAttendance(hasAttendance)
     }

@@ -5,8 +5,6 @@ import attendance.domain.DateValidator
 import attendance.view.AttendanceConfirmationInputView
 import attendance.view.AttendanceConfirmationOutputView
 import camp.nextstep.edu.missionutils.DateTimes
-import common.getDayOfWeek
-import common.isHoliday
 import java.time.LocalDateTime
 import java.time.LocalTime
 
@@ -23,7 +21,7 @@ class AttendanceConfirmationController(
         val nickName = inputView.readAttendanceName()
         attendanceService.validateNickName(nickName)
         val time = getArrivalTime(inputView.readArrivalTime())
-        attendanceService.validateHasAttendance(nickName, today.dayOfMonth)
+        attendanceService.validateAttendance(nickName, today.dayOfMonth)
         val attendanceDateTime = LocalDateTime.of(today.toLocalDate(), time)
         attendanceService.addAttendance(nickName, attendanceDateTime)
         outputView.printConfirmationResult(attendanceDateTime)

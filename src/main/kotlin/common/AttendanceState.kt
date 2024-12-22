@@ -2,6 +2,7 @@ package common
 
 import java.time.DayOfWeek
 import java.time.LocalDateTime
+import java.time.LocalTime
 
 enum class AttendanceState(val result: String) {
     ATTENDANCE("출석"),
@@ -10,10 +11,19 @@ enum class AttendanceState(val result: String) {
 
     companion object {
         fun convertAttendanceState(date: LocalDateTime): AttendanceState {
-            if (date.dayOfWeek == DayOfWeek.MONDAY && date.hour >= 13 && date.minute > 30) return ABSENCE
-            if (date.dayOfWeek == DayOfWeek.MONDAY && date.hour >= 13 && date.minute > 5) return PERCEPTION
-            if (date.dayOfWeek.isHoliday().not() && date.hour >= 10 && date.minute > 30) return ABSENCE
-            if (date.dayOfWeek.isHoliday().not() && date.hour >= 10 && date.minute > 5) return PERCEPTION
+            val mondayPerceptionTime = LocalTime.of(13, 5)
+            val mondayAbsenceTime = LocalTime.of(13, 30)
+            if (date.dayOfWeek == DayOfWeek.MONDAY) {
+                if (date.toLocalTime() > mondayAbsenceTime) return ABSENCE
+                if (date.toLocalTime() > mondayPerceptionTime) return PERCEPTION
+                if (date.toLocalTime() < mondayPerceptionTime) return ATTENDANCE
+            }
+            val remainPerceptionTime = LocalTime.of(10, 5)
+            val remainAbsenceTime = LocalTime.of(10, 30)
+            if (date.dayOfWeek.isHoliday().not()) {
+                if (date.toLocalTime() > remainAbsenceTime) return ABSENCE
+                if (date.toLocalTime() > remainPerceptionTime) return PERCEPTION
+            }
             return ATTENDANCE
         }
     }

@@ -4,7 +4,9 @@ import java.io.FileReader
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class AttendanceService {
+class AttendanceService(
+    private val crewAttendanceValidator: CrewAttendanceValidator = CrewAttendanceValidator()
+) {
     private lateinit var crewAttendances: MutableList<CrewAttendance>
 
     init {
@@ -19,10 +21,15 @@ class AttendanceService {
         }.toMutableList()
     }
 
-    fun getCrewNames() = crewAttendances.map { it.nickname }
+    private fun getCrewNames() = crewAttendances.map { it.nickname }
 
-    fun hasAttendance(name: String, day: Int): Boolean {
-        return crewAttendances.any { it.nickname == name && it.datetime.dayOfMonth == day }
+    fun validateNickName(inputName: String) {
+        crewAttendanceValidator.validateNickName(getCrewNames(), inputName)
+    }
+
+    fun validateHasAttendance(name: String, day: Int) {
+        val hasAttendance = crewAttendances.any { it.nickname == name && it.datetime.dayOfMonth == day }
+        crewAttendanceValidator.validateAttendance(hasAttendance)
     }
 
     fun addAttendance(name: String, dateTime: LocalDateTime) {

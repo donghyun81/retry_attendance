@@ -2,11 +2,14 @@ package attendance.controller
 
 import attendance.view.HomeInputView
 import attendance.view.UserAction
+import camp.nextstep.edu.missionutils.DateTimes
 
 class HomeController {
     private val inputView = HomeInputView()
+    private val today = DateTimes.now()
+
     fun getUserAction(): UserAction {
-        val userActionInput = inputView.readUserAction()
+        val userActionInput = inputView.readUserAction(today)
         return convertUserAction(userActionInput)
     }
 

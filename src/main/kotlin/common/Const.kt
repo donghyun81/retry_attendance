@@ -7,3 +7,4 @@ const val BASIC_DELIMITER = ","
 const val CHRISTMAS_DAY = 25
 const val START_DAY = 1
 const val END_DAY = 31
+const val NO_FIND_INDEX = -1

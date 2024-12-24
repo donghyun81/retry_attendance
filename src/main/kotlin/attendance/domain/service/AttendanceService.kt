@@ -73,7 +73,7 @@ class AttendanceService(
 
     fun updateAttendance(name: String, day: Int, updateTime: LocalTime): CrewAttendance {
         val attendanceIndex = crewAttendances.indexOfFirst { it.nickname == name && day == it.datetime.dayOfMonth }
-        require(attendanceIndex != -1) { "[ERROR] 아직 수정할 수 없습니다." }
+        require(attendanceIndex != NO_FIND_INDEX) { "[ERROR] 아직 수정할 수 없습니다." }
         val currentAttendance = crewAttendances[attendanceIndex]
         val updateDateTime = currentAttendance.datetime.let { LocalDateTime.of(it.toLocalDate(), updateTime) }
         val attendanceState = AttendanceState.convertAttendanceState(updateDateTime)
@@ -83,14 +83,15 @@ class AttendanceService(
     }
 
     private fun updateFileAttendance() {
-        val initFileWriter = FileWriter(ATTENDANCE_PATH).append("nickname,datetime")
+        val initFileWriter = FileWriter(ATTENDANCE_PATH).append(ATTENDANCE_ATTRIBUTE_TEXT)
         initFileWriter.flush()
-        crewAttendances.filter { it.datetime.hour != 23 && it.datetime.minute != 59 }.forEach { attendance ->
-            val formatter = DateTimeFormatter.ofPattern(ATTENDANCE_DATE_FORMAT)
-            val fileWriter = FileWriter(ATTENDANCE_PATH, true)
-            fileWriter.append("\n${attendance.nickname},${attendance.datetime.format(formatter)}")
-            fileWriter.flush()
-        }
+        crewAttendances.filter { it.datetime.hour != ABSENCE_HOUR && it.datetime.minute != ABSENCE_MINUTE }
+            .forEach { attendance ->
+                val formatter = DateTimeFormatter.ofPattern(ATTENDANCE_DATE_FORMAT)
+                val fileWriter = FileWriter(ATTENDANCE_PATH, true)
+                fileWriter.append("\n${attendance.nickname},${attendance.datetime.format(formatter)}")
+                fileWriter.flush()
+            }
     }
 
     fun getCrewAttendances(name: String) =
@@ -100,5 +101,6 @@ class AttendanceService(
         private const val ATTENDANCE_PATH = "src/main/resources/attendances.csv"
         private const val ATTENDANCE_DATE_FORMAT = "yyyy-MM-dd HH:mm"
         private const val FILE_ATTRIBUTE_LINE = 1
+        private const val ATTENDANCE_ATTRIBUTE_TEXT = "nickname,datetime"
     }
 }

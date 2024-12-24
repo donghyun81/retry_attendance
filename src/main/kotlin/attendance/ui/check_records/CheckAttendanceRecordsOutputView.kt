@@ -1,17 +1,14 @@
 package attendance.ui.check_records
 
 import attendance.domain.entity.CrewAttendance
-import common.AttendanceState
-import common.CrewAttendanceState
-import common.formatTwoDigit
-import common.getDayOfWeek
+import common.*
 
 class CheckAttendanceRecordsOutputView {
 
     fun printCrewAttendances(attendances: List<CrewAttendance>) {
         println("이번 달 ${attendances.first().nickname}의 출석 기록입니다.\n")
         attendances.forEach { attendance ->
-            if (attendance.datetime.hour == 23 && attendance.datetime.minute == 59) println("${attendance.datetime.monthValue}월 ${attendance.datetime.dayOfMonth}일 ${attendance.datetime.dayOfWeek.getDayOfWeek()} --:-- (${attendance.attendanceState.result})")
+            if (attendance.datetime.hour == ABSENCE_HOUR && attendance.datetime.minute == ABSENCE_MINUTE) println("${attendance.datetime.monthValue}월 ${attendance.datetime.dayOfMonth}일 ${attendance.datetime.dayOfWeek.getDayOfWeek()} --:-- (${attendance.attendanceState.result})")
             else println("${attendance.datetime.monthValue}월 ${attendance.datetime.dayOfMonth.formatTwoDigit()}일 ${attendance.datetime.dayOfWeek.getDayOfWeek()} ${attendance.datetime.toLocalTime()} (${attendance.attendanceState.result})")
         }
         printState(attendances)

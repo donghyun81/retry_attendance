@@ -4,17 +4,19 @@ import attendance.domain.entity.CrewAttendance
 import common.AttendanceState
 
 class CheckRiskOfExpulsionOutput {
-    fun printCrewsAtRisk(crewNames: List<String>, crewAttendances: List<CrewAttendance>) {
+    fun printCrewsAtRisk(sortedCrewNames: List<String>, crewAttendances: List<CrewAttendance>) {
         println("제적 위험자 조회 결과")
-        val sortedCrewNames =
-            crewNames.sortedWith(compareByDescending<String> { name -> crewAttendances.count { name == it.nickname && it.attendanceState == AttendanceState.ABSENCE } }.thenByDescending { name -> crewAttendances.count { name == it.nickname && it.attendanceState == AttendanceState.PERCEPTION } })
+        printCrewState(sortedCrewNames, crewAttendances)
+    }
+
+    private fun printCrewState(sortedCrewNames: List<String>, crewAttendances: List<CrewAttendance>) {
         for (crewName in sortedCrewNames) {
             val perceptionCount =
-                crewAttendances.count { crewName == it.nickname && it.attendanceState == AttendanceState.PERCEPTION && it.datetime.dayOfMonth < 13 }
+                crewAttendances.count { crewName == it.nickname && it.attendanceState == AttendanceState.PERCEPTION }
             val absenceCount =
-                crewAttendances.count { crewName == it.nickname && it.attendanceState == AttendanceState.ABSENCE && it.datetime.dayOfMonth < 13 }
+                crewAttendances.count { crewName == it.nickname && it.attendanceState == AttendanceState.ABSENCE }
             val crewState = getCrewState(perceptionCount, absenceCount)
-            if (crewState == "") continue
+            if (crewState.isEmpty()) continue
             println("- ${crewName}: 결석 ${absenceCount}회, 지각 ${perceptionCount}회 (${crewState})\"")
         }
     }

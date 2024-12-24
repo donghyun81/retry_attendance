@@ -3,8 +3,7 @@ package attendance.domain.service
 import attendance.domain.entity.CrewAttendance
 import attendance.domain.validator.CrewAttendanceValidator
 import camp.nextstep.edu.missionutils.DateTimes
-import common.AttendanceState
-import common.isHoliday
+import common.*
 import java.io.FileReader
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -21,23 +20,23 @@ class AttendanceService(
     }
 
     private fun initCrewAttendance() {
-        crewAttendances = FileReader("src/main/resources/attendances.csv").readLines().drop(1).map {
-            val (nickName, dateTimeInput) = it.split(",")
-            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+        crewAttendances = FileReader(ATTENDANCE_PATH).readLines().drop(FILE_ATTRIBUTE_LINE).map {
+            val (nickName, dateTimeInput) = it.split(BASIC_DELIMITER)
+            val formatter = DateTimeFormatter.ofPattern(ATTENDANCE_DATE_FORMAT)
             val dateTime = LocalDateTime.parse(dateTimeInput, formatter)
             val attendanceState = AttendanceState.convertAttendanceState(dateTime)
             CrewAttendance(nickName, dateTime, attendanceState)
         }.toMutableList()
         val today = DateTimes.now()
-        for (day in 1..<today.dayOfMonth) addAbsence(getCrewNames(), today, day)
+        for (day in START_DAY..<today.dayOfMonth) addAbsence(getCrewNames(), today, day)
     }
 
     private fun addAbsence(crews: List<String>, today: LocalDateTime, day: Int) {
         crews.forEach { name ->
             val crewAttendance = crewAttendances.find { it.nickname == name && it.datetime.dayOfMonth == day }
             val currentDate = LocalDate.of(today.year, today.monthValue, day)
-            if (crewAttendance == null && currentDate.dayOfWeek.isHoliday().not() && day != 25) {
-                val noTime = LocalTime.of(23, 59)
+            if (crewAttendance == null && currentDate.dayOfWeek.isHoliday().not() && day != CHRISTMAS_DAY) {
+                val noTime = LocalTime.of(ABSENCE_HOUR, ABSENCE_MINUTE)
                 addAttendance(name, LocalDateTime.of(currentDate, noTime))
             }
         }
@@ -78,4 +77,10 @@ class AttendanceService(
 
     fun getCrewAttendances(name: String) =
         crewAttendances.filter { it.nickname == name }.sortedBy { it.datetime.dayOfMonth }
+
+    companion object {
+        private const val ATTENDANCE_PATH = "src/main/resources/attendances.csv"
+        private const val ATTENDANCE_DATE_FORMAT = "yyyy-MM-dd HH:mm"
+        private const val FILE_ATTRIBUTE_LINE = 1
+    }
 }

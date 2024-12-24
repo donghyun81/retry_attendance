@@ -3,7 +3,7 @@ package attendance.ui.check_risk_expulsion
 import attendance.domain.entity.CrewAttendance
 import common.AttendanceState
 
-class CheckRiskOfExpulsionOutput {
+class CheckRiskOfExpulsionOutputView {
     fun printCrewsAtRisk(sortedCrewNames: List<String>, crewAttendances: List<CrewAttendance>) {
         println("제적 위험자 조회 결과")
         printCrewState(sortedCrewNames, crewAttendances)

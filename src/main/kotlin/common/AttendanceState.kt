@@ -16,21 +16,26 @@ enum class AttendanceState(val result: String) {
         }
 
         private fun getMondayAttendanceState(date: LocalDateTime): AttendanceState {
-            val mondayPerceptionTime = LocalTime.of(13, 5)
-            val mondayAbsenceTime = LocalTime.of(13, 30)
+            val mondayPerceptionTime = LocalTime.of(MONDAY_LIMIT_HOUR, PERCEPTION_MINUTE)
+            val mondayAbsenceTime = LocalTime.of(MONDAY_LIMIT_HOUR, ABSENCE_MINUTE)
             if (date.toLocalTime() > mondayAbsenceTime) return ABSENCE
             if (date.toLocalTime() > mondayPerceptionTime) return PERCEPTION
             return ATTENDANCE
         }
 
         private fun getRemainWeekDayAttendanceState(date: LocalDateTime): AttendanceState {
-            val remainPerceptionTime = LocalTime.of(10, 5)
-            val remainAbsenceTime = LocalTime.of(10, 30)
+            val remainPerceptionTime = LocalTime.of(REMAIN_WEEKDAY_LIMIT_HOUR, PERCEPTION_MINUTE)
+            val remainAbsenceTime = LocalTime.of(REMAIN_WEEKDAY_LIMIT_HOUR, ABSENCE_MINUTE)
             if (date.dayOfWeek.isHoliday().not()) {
                 if (date.toLocalTime() > remainAbsenceTime) return ABSENCE
                 if (date.toLocalTime() > remainPerceptionTime) return PERCEPTION
             }
             return ATTENDANCE
         }
+
+        private const val MONDAY_LIMIT_HOUR = 13
+        private const val REMAIN_WEEKDAY_LIMIT_HOUR = 10
+        private const val PERCEPTION_MINUTE = 5
+        private const val ABSENCE_MINUTE = 5
     }
 }

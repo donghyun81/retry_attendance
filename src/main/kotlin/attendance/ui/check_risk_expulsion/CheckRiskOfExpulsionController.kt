@@ -6,7 +6,7 @@ import common.AttendanceState
 
 class CheckRiskOfExpulsionController(private val attendanceService: AttendanceService) {
 
-    private val outputView = CheckRiskOfExpulsionOutput()
+    private val outputView = CheckRiskOfExpulsionOutputView()
 
     fun run() {
         val crewNames = attendanceService.getCrewNames()

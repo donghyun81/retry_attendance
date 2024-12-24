@@ -3,6 +3,7 @@ package attendance.ui.confirmation
 import attendance.domain.service.AttendanceService
 import attendance.domain.validator.DateValidator
 import camp.nextstep.edu.missionutils.DateTimes
+import common.TIME_DELIMITER
 import java.time.LocalDateTime
 import java.time.LocalTime
 
@@ -26,8 +27,8 @@ class AttendanceConfirmationController(
     }
 
     private fun getArrivalTime(time: String): LocalTime {
-        require(time.split(":").size == 2)
-        val (hourInput, minuteInput) = time.split(":")
+        require(time.split(TIME_DELIMITER).size == 2)
+        val (hourInput, minuteInput) = time.split(TIME_DELIMITER)
         return LocalTime.of(dateValidator.validateHour(hourInput), dateValidator.validateMinute(minuteInput))
     }
 }

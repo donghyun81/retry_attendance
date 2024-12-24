@@ -5,6 +5,7 @@ import attendance.domain.validator.CrewAttendanceValidator
 import camp.nextstep.edu.missionutils.DateTimes
 import common.*
 import java.io.FileReader
+import java.io.FileWriter
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -37,7 +38,7 @@ class AttendanceService(
             val currentDate = LocalDate.of(today.year, today.monthValue, day)
             if (crewAttendance == null && currentDate.dayOfWeek.isHoliday().not() && day != CHRISTMAS_DAY) {
                 val noTime = LocalTime.of(ABSENCE_HOUR, ABSENCE_MINUTE)
-                addAttendance(name, LocalDateTime.of(currentDate, noTime))
+                addAttendance(name, LocalDateTime.of(currentDate, noTime), isNoTime = true)
             }
         }
     }
@@ -60,8 +61,13 @@ class AttendanceService(
         crewAttendanceValidator.validateAttendance(hasAttendance)
     }
 
-    fun addAttendance(name: String, dateTime: LocalDateTime) {
+    fun addAttendance(name: String, dateTime: LocalDateTime, isNoTime: Boolean = false) {
         val attendanceState = AttendanceState.convertAttendanceState(dateTime)
+        val formatter = DateTimeFormatter.ofPattern(ATTENDANCE_DATE_FORMAT)
+        if (isNoTime.not()){
+            val fileWriter = FileWriter(ATTENDANCE_PATH, true).append("\n${name},${dateTime.format(formatter)}")
+            fileWriter.flush()
+        }
         crewAttendances.add(CrewAttendance(name, dateTime, attendanceState))
     }
 

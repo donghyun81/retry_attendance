@@ -64,7 +64,7 @@ class AttendanceService(
     fun addAttendance(name: String, dateTime: LocalDateTime, isNoTime: Boolean = false) {
         val attendanceState = AttendanceState.convertAttendanceState(dateTime)
         val formatter = DateTimeFormatter.ofPattern(ATTENDANCE_DATE_FORMAT)
-        if (isNoTime.not()){
+        if (isNoTime.not()) {
             val fileWriter = FileWriter(ATTENDANCE_PATH, true).append("\n${name},${dateTime.format(formatter)}")
             fileWriter.flush()
         }
@@ -78,7 +78,19 @@ class AttendanceService(
         val updateDateTime = currentAttendance.datetime.let { LocalDateTime.of(it.toLocalDate(), updateTime) }
         val attendanceState = AttendanceState.convertAttendanceState(updateDateTime)
         crewAttendances[attendanceIndex] = CrewAttendance(name, updateDateTime, attendanceState)
+        updateFileAttendance()
         return currentAttendance
+    }
+
+    private fun updateFileAttendance() {
+        val initFileWriter = FileWriter(ATTENDANCE_PATH).append("nickname,datetime")
+        initFileWriter.flush()
+        crewAttendances.filter { it.datetime.hour != 23 && it.datetime.minute != 59 }.forEach { attendance ->
+            val formatter = DateTimeFormatter.ofPattern(ATTENDANCE_DATE_FORMAT)
+            val fileWriter = FileWriter(ATTENDANCE_PATH, true)
+            fileWriter.append("\n${attendance.nickname},${attendance.datetime.format(formatter)}")
+            fileWriter.flush()
+        }
     }
 
     fun getCrewAttendances(name: String) =

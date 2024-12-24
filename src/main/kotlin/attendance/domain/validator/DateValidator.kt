@@ -9,7 +9,7 @@ class DateValidator {
     fun validateUpdateDay(today: LocalDateTime, dayInput: String): Int {
         val day = requireNotNull(dayInput.toIntOrNull()) { "[ERROR] 잘못된 형식을 입력하였습니다." }
         require(day in 1..31) { "[ERROR] 잘못된 형식을 입력하였습니다." }
-        require(today.dayOfMonth <= day) { "[ERROR] 아직 수정할 수 없습니다." }
+        require(today.dayOfMonth >= day) { "[ERROR] 아직 수정할 수 없습니다." }
         return day
     }
 

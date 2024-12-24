@@ -26,14 +26,10 @@ class AttendanceService(
             val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
             val dateTime = LocalDateTime.parse(dateTimeInput, formatter)
             val attendanceState = AttendanceState.convertAttendanceState(dateTime)
-            if (nickName =="빙봉") {
-                println(dateTime.toLocalTime())
-                println(attendanceState)
-            }
             CrewAttendance(nickName, dateTime, attendanceState)
         }.toMutableList()
         val today = DateTimes.now()
-        for (day in 1..<13) addAbsence(getCrewNames(), today, day)
+        for (day in 1..<today.dayOfMonth) addAbsence(getCrewNames(), today, day)
     }
 
     private fun addAbsence(crews: List<String>, today: LocalDateTime, day: Int) {
@@ -72,7 +68,7 @@ class AttendanceService(
 
     fun updateAttendance(name: String, day: Int, updateTime: LocalTime): CrewAttendance {
         val attendanceIndex = crewAttendances.indexOfFirst { it.nickname == name && day == it.datetime.dayOfMonth }
-        require(attendanceIndex != -1)
+        require(attendanceIndex != -1) { "[ERROR] 아직 수정할 수 없습니다." }
         val currentAttendance = crewAttendances[attendanceIndex]
         val updateDateTime = currentAttendance.datetime.let { LocalDateTime.of(it.toLocalDate(), updateTime) }
         val attendanceState = AttendanceState.convertAttendanceState(updateDateTime)

@@ -18,7 +18,7 @@ class AttendanceUpdateController(
         dateValidator.validateSchoolDay(today = today)
         val name = inputView.readUpdateName()
         attendanceService.validateNickName(name)
-        val day = dateValidator.validateDay(inputView.readUpdateDate())
+        val day = dateValidator.validateUpdateDay(inputView.readUpdateDate())
         attendanceService.validateUpdate(name, day)
         val time = getUpdateTime(inputView.readUpdateTime())
         val previousAttendance = attendanceService.updateAttendance(name, day, time).datetime

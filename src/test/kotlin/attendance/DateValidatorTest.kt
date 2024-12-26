@@ -42,11 +42,27 @@ class DateValidatorTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = ["25", "1"])
+    @ValueSource(ints = [25, 1])
     fun `출석 날짜 예외 테스트`(day: Int) {
         val today = dateTime.withDayOfMonth(day)
         assertThrows<IllegalArgumentException> {
             dateValidator.validateSchoolDay(today)
+        }
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = ["25", "-1","36"])
+    fun `출석 시간 형식 예외 테스트`(hourInput: String) {
+        assertThrows<IllegalArgumentException> {
+            dateValidator.validateHour(hourInput)
+        }
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = ["23", "0","1"])
+    fun `캠퍼스 오픈 시간 예외 테스트`(hourInput: String) {
+        assertThrows<IllegalArgumentException> {
+            dateValidator.validateHour(hourInput)
         }
     }
 }

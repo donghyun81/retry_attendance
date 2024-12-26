@@ -51,7 +51,7 @@ class DateValidatorTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = ["25", "-1","36"])
+    @ValueSource(strings = ["25", "-1", "36"])
     fun `출석 시간 형식 예외 테스트`(hourInput: String) {
         assertThrows<IllegalArgumentException> {
             dateValidator.validateHour(hourInput)
@@ -59,10 +59,18 @@ class DateValidatorTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = ["23", "0","1"])
+    @ValueSource(strings = ["23", "0", "1"])
     fun `캠퍼스 오픈 시간 예외 테스트`(hourInput: String) {
         assertThrows<IllegalArgumentException> {
             dateValidator.validateHour(hourInput)
+        }
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = ["60", "-1", "6423"])
+    fun `출석 분 형식 예외 테스트`(minuteInput: String) {
+        assertThrows<IllegalArgumentException> {
+            dateValidator.validateMinute(minuteInput)
         }
     }
 }

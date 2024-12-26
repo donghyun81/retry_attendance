@@ -34,10 +34,19 @@ class DateValidatorTest {
         "30,31",
         "1,31"
     )
-    fun `업데이트 미래 날짜 예외 테스트`(day:Int,dayInput: Int) {
+    fun `업데이트 미래 날짜 예외 테스트`(day: Int, dayInput: Int) {
         val today = dateTime.withDayOfMonth(day)
         assertThrows<IllegalArgumentException> {
             dateValidator.validateUpdateDay(today, dayInput.toString())
+        }
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = ["25", "1"])
+    fun `출석 날짜 예외 테스트`(day: Int) {
+        val today = dateTime.withDayOfMonth(day)
+        assertThrows<IllegalArgumentException> {
+            dateValidator.validateSchoolDay(today)
         }
     }
 }

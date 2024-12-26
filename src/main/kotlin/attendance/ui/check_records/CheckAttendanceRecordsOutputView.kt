@@ -8,8 +8,7 @@ class CheckAttendanceRecordsOutputView {
     fun printCrewAttendances(attendances: List<CrewAttendance>) {
         println("이번 달 ${attendances.first().nickname}의 출석 기록입니다.\n")
         attendances.forEach { attendance ->
-            if (attendance.datetime.hour == ABSENCE_HOUR && attendance.datetime.minute == ABSENCE_MINUTE) println("${attendance.datetime.monthValue}월 ${attendance.datetime.dayOfMonth}일 ${attendance.datetime.dayOfWeek.getDayOfWeek()} --:-- (${attendance.attendanceState.result})")
-            else println("${attendance.datetime.monthValue}월 ${attendance.datetime.dayOfMonth.formatTwoDigit()}일 ${attendance.datetime.dayOfWeek.getDayOfWeek()} ${attendance.datetime.toLocalTime()} (${attendance.attendanceState.result})")
+            println("${attendance.datetime.monthValue}월 ${attendance.datetime.dayOfMonth.formatTwoDigit()}일 ${attendance.datetime.dayOfWeek.getDayOfWeek()} ${attendance.datetime.toTime()} (${attendance.attendanceState.result})")
         }
         printState(attendances)
     }
